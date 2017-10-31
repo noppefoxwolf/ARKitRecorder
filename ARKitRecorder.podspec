@@ -1,10 +1,11 @@
 Pod::Spec.new do |s|
   s.name             = 'ARKitRecorder'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of ARKitRecorder.'
+  s.summary          = 'Simple video recorder for ARKit.'
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+Simple video recorder for ARKit.
+Real Time record, Aspect ratio and timestamp are perfect.
                        DESC
 
   s.homepage         = 'https://github.com/noppefoxwolf/ARKitRecorder'

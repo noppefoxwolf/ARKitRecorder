@@ -19,6 +19,7 @@ final class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     let scene = SCNScene(named: "art.scnassets/ship.scn")!
+    arSCNView.preferredFramesPerSecond = 60
     arSCNView.scene = scene
     _ = writer
   }
