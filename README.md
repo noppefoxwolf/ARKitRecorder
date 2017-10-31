@@ -15,6 +15,13 @@ it, simply add the following line to your Podfile:
 pod 'ARKitRecorder'
 ```
 
+## Usage
+
+```
+private lazy var writer: ARKitRecorder = try! .init(with: self.arSCNView, outputURL: self.outputURL)
+try! writer.startWriting()
+```
+
 ## Author
 
 🦊Tomoya Hirano, noppelabs@gmail.com
