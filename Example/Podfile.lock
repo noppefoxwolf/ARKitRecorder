@@ -1,0 +1,16 @@
+PODS:
+  - ARKitRecorder (0.1.0)
+
+DEPENDENCIES:
+  - ARKitRecorder (from `../`)
+
+EXTERNAL SOURCES:
+  ARKitRecorder:
+    :path: ../
+
+SPEC CHECKSUMS:
+  ARKitRecorder: 4235d7a7d0ac8da5b567855f6394287c4fd0290d
+
+PODFILE CHECKSUM: e6829cd0c259e8199142168c2998d1207dc3e4ec
+
+COCOAPODS: 1.4.0.beta.2

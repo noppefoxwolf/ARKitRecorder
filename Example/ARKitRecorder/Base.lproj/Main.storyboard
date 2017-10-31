@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="ARKitRecorder_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZSJ-H6-zhs">
+                                <rect key="frame" x="20" y="166" width="335" height="335"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ZSJ-H6-zhs" secondAttribute="height" multiplier="1:1" id="kUi-gM-wNA"/>
+                                </constraints>
+                            </arscnView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oSB-Mq-S4H">
+                                <rect key="frame" x="164" y="521" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="buttonAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="n9D-N2-5Zx"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ZSJ-H6-zhs" secondAttribute="trailing" constant="20" id="0ch-HU-vou"/>
+                            <constraint firstItem="ZSJ-H6-zhs" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="AiM-Ht-v9s"/>
+                            <constraint firstItem="oSB-Mq-S4H" firstAttribute="top" secondItem="ZSJ-H6-zhs" secondAttribute="bottom" constant="20" id="Nox-hK-Wv4"/>
+                            <constraint firstItem="oSB-Mq-S4H" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="bS1-Tn-XNh"/>
+                            <constraint firstItem="ZSJ-H6-zhs" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="dWH-aU-rb7"/>
+                            <constraint firstItem="ZSJ-H6-zhs" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="hSa-dr-fsh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="arSCNView" destination="ZSJ-H6-zhs" id="I80-pK-vbq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
