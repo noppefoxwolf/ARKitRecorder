@@ -11,7 +11,7 @@ Real Time record, Aspect ratio and timestamp are perfect.
   s.homepage         = 'https://github.com/noppefoxwolf/ARKitRecorder'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { '🦊Tomoya Hirano' => 'noppelabs@gmail.com' }
-  s.source           = { :git => 'git@github.com:noppefoxwolf/ARKitRecorder.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/noppefoxwolf/ARKitRecorder.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/noppefoxwolf'
   s.ios.deployment_target = '11.0'
   s.source_files = 'ARKitRecorder/Classes/**/*'
