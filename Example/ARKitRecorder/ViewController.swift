@@ -14,7 +14,8 @@ import Photos
 final class ViewController: UIViewController {
   @IBOutlet private weak var arSCNView: ARSCNView!
   private let outputURL = URL(fileURLWithPath: NSTemporaryDirectory() + "output.mp4")
-  private lazy var writer: ARKitRecorder = try! .init(with: self.arSCNView, outputURL: self.outputURL)
+  private let options = ARKitRecorder.Options()
+  private lazy var writer: ARKitRecorder = try! .init(with: self.arSCNView, options: self.options)
   
   override func viewDidLoad() {
     super.viewDidLoad()

@@ -7,15 +7,17 @@
 
 import UIKit
 import ARKit
+import AVFoundation
 
 public class ARKitRecorder: NSObject, ARSCNViewDelegate {
   private let renderer = SCNRenderer(device: nil, options: nil)
   private let size: CGSize
-  private let outputURL: URL
   private var writer: AVAssetWriter!
+  private let queue = DispatchQueue(label: "com.noppelabs.ARKitRecorder")
+  private let options: Options
   
   private lazy var input: AVAssetWriterInput = .init(mediaType: .video, outputSettings: [
-      AVVideoCodecKey: AVVideoCodecType.h264,
+      AVVideoCodecKey: self.options.videoCodec,
       AVVideoWidthKey: self.size.width,
       AVVideoHeightKey: self.size.height
   ])
@@ -29,9 +31,9 @@ public class ARKitRecorder: NSObject, ARSCNViewDelegate {
   private(set) var isWriting = false
   private var currentTime: TimeInterval = 0
   
-  public init(with arSCNView: ARSCNView, outputURL: URL) throws {
+  public init(with arSCNView: ARSCNView, options: Options) throws {
     self.size = arSCNView.snapshot().size
-    self.outputURL = outputURL
+    self.options = options
     super.init()
     arSCNView.delegate = self
     renderer.scene = arSCNView.scene
@@ -40,7 +42,7 @@ public class ARKitRecorder: NSObject, ARSCNViewDelegate {
   }
   
   public func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-    DispatchQueue.main.async { [weak self] in
+    queue.async { [weak self] in
       self?.processVideo(with: renderer, updateAtTime: time)
     }
   }
@@ -48,36 +50,40 @@ public class ARKitRecorder: NSObject, ARSCNViewDelegate {
   private func processVideo(with renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
     autoreleasepool {
       currentTime = time
-      guard isWriting else { return }
       guard writer.status == .writing else { return }
       guard input.isReadyForMoreMediaData else { return }
       guard let pool = pixelBufferAdaptor.pixelBufferPool else { return }
-      let image = self.renderer.snapshot(atTime: time,
-                                         with: size,
-                                         antialiasingMode: SCNAntialiasingMode.multisampling4X)
+      let image = self.renderer.snapshot(atTime: time, with: size, antialiasingMode: options.antialiasingMode)
       guard let pixelBuffer = PixelBufferFactory.make(with: size, from: image, usingBuffer: pool) else { return }
+      guard isWriting else { return }
       pixelBufferAdaptor.append(pixelBuffer, withPresentationTime: CMTimeMakeWithSeconds(time, 1000000))
     }
   }
   
   public func startWriting() throws {
     try resetWriter()
-    FileController.delete(file: outputURL)
+    FileController.delete(file: options.outputURL)
     writer.startWriting()
     writer.startSession(atSourceTime: CMTimeMakeWithSeconds(currentTime, 1000000))
     isWriting = true
   }
   
+  public func cancelWriting() {
+    isWriting = false
+    writer.cancelWriting()
+  }
+  
   public func finishWriting(completionHandler: ((URL) -> Void)? = nil) {
     isWriting = false
     writer.finishWriting { [weak self] in
-      guard let url = self?.outputURL else { return }
+      guard let url = self?.options.outputURL else { return }
       completionHandler?(url)
     }
   }
   
   private func resetWriter() throws {
-    writer = try AVAssetWriter(outputURL: outputURL, fileType: .mp4)
+    writer = try AVAssetWriter(outputURL: options.outputURL, fileType: .mp4)
+    writer.movieFragmentInterval = kCMTimeInvalid
     writer.add(input)
   }
 }
