@@ -19,9 +19,11 @@ final class ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    let scene = SCNScene(named: "art.scnassets/ship.scn")!
-    arSCNView.preferredFramesPerSecond = 60
+    
+    let scene = SCNScene(named: "art.scnassets/world.scn")!
     arSCNView.scene = scene
+    arSCNView.preferredFramesPerSecond = 60
+    arSCNView.showsStatistics = false
     _ = writer
   }
   
@@ -29,6 +31,9 @@ final class ViewController: UIViewController {
     super.viewWillAppear(animated)
     let configuration = ARWorldTrackingConfiguration()
     arSCNView.session.run(configuration)
+    
+    let scene = SCNScene(named: "art.scnassets/ship.scn")!
+    arSCNView.scene.rootNode.addChildNode(scene.rootNode)
   }
   
   override func viewWillDisappear(_ animated: Bool) {
